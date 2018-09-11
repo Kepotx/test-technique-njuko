@@ -87,6 +87,13 @@ class ParticipantController extends AbstractActionController
 
     public function generateBibNumbersAction(){
 
+        $participants = $this->entityManager->getRepository('Application\Entity\Participant')->findAll();
+        $dossard_number = 1;
+        foreach ($participants as $participant){
+            $participant->setDossardNumber($dossard_number++);
+            $this->entityManager->persist($participant);
+        }
+        $this->entityManager->flush();
         return $this->redirect()->toRoute('participant/list');
 
     }
