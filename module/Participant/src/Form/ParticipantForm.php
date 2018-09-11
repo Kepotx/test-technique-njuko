@@ -54,6 +54,14 @@ class ParticipantForm extends Form
         ]);
 
         $this->add([
+            'name'    => 'dossard_number',
+            'type'    => 'Number',
+            'options' => [
+                'label' => 'Numéro de dossard',
+            ],
+        ]);
+
+        $this->add([
             'name'       => 'submit',
             'type'       => 'submit',
             'attributes' => [

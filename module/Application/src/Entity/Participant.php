@@ -23,6 +23,9 @@ class Participant
     /** @ORM\Column(type="string") */
     protected $sex;
 
+    /** @ORM\Column(type="integer", nullable=true) */
+    protected $dossard_number;
+
     /**
      * @ORM\ManyToOne(targetEntity="Application\Entity\Event")
      * @ORM\JoinColumn(name="event_id", referencedColumnName="id", onDelete="CASCADE")
@@ -111,4 +114,19 @@ class Participant
         $this->event = $event;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getDossardNumber()
+    {
+        return $this->dossard_number;
+    }
+
+    /**
+     * @param mixed $dossard_number
+     */
+    public function setDossardNumber($dossard_number)
+    {
+        $this->dossard_number = $dossard_number;
+    }
 }
