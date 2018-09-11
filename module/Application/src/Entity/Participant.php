@@ -26,6 +26,9 @@ class Participant
     /** @ORM\Column(type="integer", nullable=true) */
     protected $dossard_number;
 
+    /** @ORM\Column(type="string") */
+    protected $measured_time;
+
     /**
      * @ORM\ManyToOne(targetEntity="Application\Entity\Event")
      * @ORM\JoinColumn(name="event_id", referencedColumnName="id", onDelete="CASCADE")
@@ -128,5 +131,21 @@ class Participant
     public function setDossardNumber($dossard_number)
     {
         $this->dossard_number = $dossard_number;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMeasuredTime()
+    {
+        return $this->measured_time;
+    }
+
+    /**
+     * @param mixed $measured_time
+     */
+    public function setMeasuredTime($measured_time)
+    {
+        $this->measured_time = $measured_time;
     }
 }

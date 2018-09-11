@@ -95,6 +95,18 @@ class ParticipantForm extends Form
         ]);
 
         $this->add([
+            'name'    => 'measured_time',
+            'type'    => 'Time',
+            'options' => [
+                'label' => 'Temps de passage',
+            ],
+            'attributes' => [
+                'class' => 'form-control',
+                'step' => '1'
+            ],
+        ]);
+
+        $this->add([
             'name'       => 'submit',
             'type'       => 'submit',
             'attributes' => [
