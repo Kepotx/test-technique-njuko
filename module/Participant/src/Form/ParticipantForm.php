@@ -3,11 +3,18 @@
 namespace Participant\Form;
 
 use Zend\Form\Form;
+use DoctrineModule\Form\Element\ObjectSelect;
+use Doctrine\ORM\EntityManager;
 
 class ParticipantForm extends Form
 {
-    public function __construct($name = null)
+
+    /** @var EntityManager entityManager */
+    protected $entityManager;
+
+    public function __construct(EntityManager $entityManager)
     {
+        $this->entityManager = $entityManager;
 
         parent::__construct('user');
 
@@ -18,11 +25,15 @@ class ParticipantForm extends Form
             'type' => 'Hidden',
         ]);
 
+
         $this->add([
             'name'    => 'firstname',
             'type'    => 'Text',
             'options' => [
                 'label' => 'Prénom',
+            ],
+            'attributes' => [
+                'class' => 'form-control'
             ],
         ]);
 
@@ -31,6 +42,9 @@ class ParticipantForm extends Form
             'type'    => 'Text',
             'options' => [
                 'label' => 'Nom',
+            ],
+            'attributes' => [
+                'class' => 'form-control'
             ],
         ]);
 
@@ -58,6 +72,25 @@ class ParticipantForm extends Form
             'type'    => 'Number',
             'options' => [
                 'label' => 'Numéro de dossard',
+            ],
+            'attributes' => [
+                'class' => 'form-control'
+            ],
+        ]);
+
+
+        $this->add([
+            'name' => 'event',
+            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+            'options' => [
+                'object_manager' => $this->entityManager,
+                'target_class'   => 'Application\Entity\Event',
+                'label' => 'Événement',
+                'property' => 'name',
+                'is_method' => true,
+            ],
+            'attributes' => [
+                'class' => 'form-control'
             ],
         ]);
 
