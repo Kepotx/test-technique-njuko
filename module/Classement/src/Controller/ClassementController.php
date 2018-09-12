@@ -11,7 +11,6 @@ class ClassementController extends AbstractActionController
     /** @var EntityManager $entityManager */
     private $entityManager;
 
-    private $participants;
 
     public function __construct($entityManager)
     {
@@ -24,11 +23,33 @@ class ClassementController extends AbstractActionController
 
         /** TODO : Implementer les classements */
 
-        $participants = $this->entityManager->getRepository('Application\Entity\Participant')->findBy(array(), array('measured_time' => 'ASC'));
 
-        return new ViewModel(array(
-                "participants" => $participants
-            )
-        );
+        $sex = isset($_GET["sex"]) ? $_GET["sex"] : "all";
+        $event = (int) (isset($_GET["event"]) ? $_GET["event"] : 1);
+        if ($sex === "all") {
+            $participants = $this->entityManager->getRepository('Application\Entity\Participant')->findBy(
+                ['event' => $event],
+                ['measured_time' => 'ASC']
+            );
+
+        } else {
+            $participants = $this->entityManager->getRepository('Application\Entity\Participant')->findBy(
+                ['sex' => $sex,
+                    'event' => $event],
+                ['measured_time' => 'ASC']
+            );
+
+        }
+        $events = $this->entityManager->getRepository('Application\Entity\Event')->findAll();
+
+        return new ViewModel([
+                "events" => $events,
+                "participants" => $participants,
+                "event" => $event,
+                "sex" => $sex,
+            ]);
     }
+
+
+
 }
